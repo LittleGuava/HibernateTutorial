@@ -1,5 +1,7 @@
 package com.luv2code.hibernate.demo;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -41,10 +43,10 @@ public class CreateStudentDemo {
 			
 			System.out.println("Salvou com Sucesso");
 			
-			//possivelmente desnecessário, serve pra garantir que a conexão fechou
-			session.close();
-		
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
+			session.close();
 			factory.close();
 		}
 	}
