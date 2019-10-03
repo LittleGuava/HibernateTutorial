@@ -8,11 +8,11 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
+import net.bytebuddy.asm.Advice.This;
 
-public class ReadStudentDemo {
+public class UpdateStudentDemo {
 
 	public static void main(String[] args) {
-		Student stu = null;
 		// create session factory
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Student.class)
 				.buildSessionFactory();
@@ -20,35 +20,33 @@ public class ReadStudentDemo {
 		// create session
 		Session session = factory.getCurrentSession();
 
-		
 		//Bloco do Criteria
 		
 		try {
 			session = factory.getCurrentSession();
 			session.beginTransaction();
 			
-			if (stu == null) {
-				stu = (Student)session.createQuery("from Student where id = 1").getSingleResult();
-			}
-			
-			Student getStudent = session.get(Student.class, stu.getId());
-			
-			System.out.println(getStudent.toString());
-			
-			List<Student> allStu = session.createQuery("from Student").getResultList();
+			List<Student> allStu = session.createQuery("from Student where email LIKE '%bbb%'").getResultList();
 
+			// Opção 1 de Update: pegar todo mundo, fazer select, mudar os valores e retornar
 			for(Student a: allStu) {
 				System.out.println(a.getId() + " " +
 						a.getEmail() + " " +
 						a.getFirstName() + " " +
 						a.getLastname() + " ");
+				a.setEmail(a.getEmail().replaceAll("bbb.com", "gmail.com"));
+				a.setEmail(a.getEmail().replaceAll("bbb.com2", "gmail.com"));
 			}
 			
-			session.close();
+			//Opção dois, fazer a queri e já executar
+			session.createQuery("Update Student set email = 'aaa@gmail.com' where id = 15").executeUpdate();
+			
+			session.getTransaction().commit();
+			
 		} finally {
+			factory.close();
 		}
 		
-		factory.close();
 	}
 
 }
