@@ -1,5 +1,7 @@
 package com.luv2code.hibernate.entity;
 
+import org.hibernate.Criteria;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,17 +21,17 @@ public class Student {
 	private String firstName;
 	
 	@Column(name="last_name")
-	private String lastname;
+	private String lastName;
 
 	@Column(name="email")
 	private String email;
 	
 	public Student() {}
-	
-	public Student(String firstName, String lastname, String email) {
+
+	public Student(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
-		this.lastname = lastname;
+		this.lastName = lastName;
 		this.email = email;
 	}
 
@@ -41,12 +43,12 @@ public class Student {
 		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -60,6 +62,16 @@ public class Student {
 	public int getId() {
 		return id;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
+
+
 }

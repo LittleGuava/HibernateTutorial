@@ -8,8 +8,6 @@ import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.entity.Student;
 
-import net.bytebuddy.asm.Advice.This;
-
 public class UpdateStudentDemo {
 
 	public static void main(String[] args) {
@@ -33,14 +31,15 @@ public class UpdateStudentDemo {
 				System.out.println(a.getId() + " " +
 						a.getEmail() + " " +
 						a.getFirstName() + " " +
-						a.getLastname() + " ");
-				a.setEmail(a.getEmail().replaceAll("bbb.com", "gmail.com"));
+						a.getLastName() + " ");
 				a.setEmail(a.getEmail().replaceAll("bbb.com2", "gmail.com"));
+
 			}
 			
 			//Opção dois, fazer a queri e já executar
-			session.createQuery("Update Student set email = 'aaa@gmail.com' where id = 15").executeUpdate();
-			
+//			session.createQuery("Update Student set email = 'aaa@gmail.com' where id = 15").executeUpdate();
+
+
 			session.getTransaction().commit();
 			
 		} finally {

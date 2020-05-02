@@ -12,7 +12,6 @@ public class TestJdbc {
 		String pass = "hbstudent";
 		
 		try {
-			
 			System.out.println("Connecting to database: " + jdbcUrl);
 			Connection myConn = DriverManager.getConnection(jdbcUrl, user, pass);
 			
